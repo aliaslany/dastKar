@@ -5,7 +5,8 @@ in Toman, payments through ZarinPal, seller payouts straight to Iranian bank
 accounts (Sheba/IBAN). One seller owns a shop, a shop lists products, buyers
 add to cart per-shop and check out per-shop — same core business logic as
 Etsy, on a $0-to-start Cloudflare stack:
-
+ a preview link in :
+ https://claude.ai/artifact/LSXv3pzpbLiFLq8wXpKMfS
 - **Cloudflare Pages** — hosts the React frontend (`frontend/`)
 - **Cloudflare Workers + Hono** — the API (`worker/`)
 - **Cloudflare D1** — SQL database (users, shops, listings, orders, reviews...)
