@@ -1,0 +1,65 @@
+name: Deploy preview to GitHub Pages
+
+# This publishes a STATIC PREVIEW of the frontend only — good for showing
+# someone the UI/UX quickly. It is not the production deployment:
+#   - No Worker API behind it unless you point VITE_API_BASE at one you've
+#     already deployed to Cloudflare (see repo README, section 2-3).
+#   - The edge SEO middleware (frontend/functions/_middleware.ts) is a
+#     Cloudflare Pages Function and does not run here — GitHub Pages only
+#     serves static files, so Telegram/WhatsApp link-preview injection is
+#     Cloudflare-only.
+# Cloudflare Pages remains the recommended host for the real site.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/deploy-gh-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build (static preview — set VITE_API_BASE to your deployed Worker URL as a repo variable to make it functional, otherwise it's UI-only)
+        working-directory: frontend
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_API_BASE: ${{ vars.VITE_API_BASE }}
+          VITE_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+        run: npm run build
+
+      - name: SPA fallback for GitHub Pages (client-side routing needs a 404 that's really index.html)
+        run: cp frontend/dist/index.html frontend/dist/404.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
