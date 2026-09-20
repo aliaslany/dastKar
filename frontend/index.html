@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Static defaults for crawlers that never run JS (most importantly:
+         Telegram, WhatsApp and other chat-app link-preview bots — dominant
+         sharing channels in Iran). react-helmet-async overrides these with
+         page-specific values once the app hydrates, but a bot that only
+         reads the first HTML response still gets a correct, real preview
+         instead of a blank "دستکار" title on every shared link. -->
+    <title>دستکار | بازار صنایع‌دستی و آثار هنری ایرانی</title>
+    <meta name="description" content="دستکار، بازار آنلاین صنایع‌دستی، آثار هنری و محصولات دست‌ساز ایرانی. مستقیم از دست هنرمند به دست شما." />
+    <meta name="theme-color" content="#0F7A7E" />
+
+    <meta property="og:site_name" content="دستکار" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="دستکار | بازار صنایع‌دستی و آثار هنری ایرانی" />
+    <meta property="og:description" content="دستکار، بازار آنلاین صنایع‌دستی، آثار هنری و محصولات دست‌ساز ایرانی. مستقیم از دست هنرمند به دست شما." />
+    <meta property="og:locale" content="fa_IR" />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

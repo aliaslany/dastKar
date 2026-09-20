@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Vazirmatn", Tahoma, sans-serif;
+  background-color: #F3ECDC;
+  color: #2E2115;
+}
+
+/* Visible keyboard focus, matches the firouzeh accent */
+:focus-visible {
+  outline: 2px solid #0F7A7E;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Persian numerals in inputs that carry currency/quantity */
+.fa-num {
+  font-variant-numeric: normal;
+}

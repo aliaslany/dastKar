@@ -1,0 +1,8 @@
+# Proxies /sitemap.xml on the Pages domain to the Worker's dynamically
+# generated sitemap, so search engines see it under your real site's own
+# domain (https://dastkar.pages.dev/sitemap.xml) instead of the workers.dev
+# subdomain. Status 200 = a transparent proxy/rewrite, not a redirect — the
+# URL in the browser/crawler stays /sitemap.xml.
+#
+# Replace with your actual Worker URL once deployed.
+/sitemap.xml  https://dastkar-api.YOUR-SUBDOMAIN.workers.dev/api/sitemap.xml  200

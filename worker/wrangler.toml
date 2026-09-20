@@ -1,0 +1,36 @@
+name = "dastkar-api"
+main = "src/index.ts"
+compatibility_date = "2026-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ---- D1 database (SQL: users, shops, listings, orders...) ----
+[[d1_databases]]
+binding = "DB"
+database_name = "dastkar-db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+# ---- R2 bucket (product images) ----
+[[r2_buckets]]
+binding = "IMAGES"
+bucket_name = "dastkar-images"
+
+# ---- KV namespace (sessions / cart cache) ----
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+# ---- Secrets (set with `wrangler secret put NAME`) ----
+# JWT_SECRET            - random string used to sign auth tokens
+# ZARINPAL_MERCHANT_ID  - your ZarinPal merchant ID (from your ZarinPal panel)
+
+[vars]
+ENVIRONMENT = "production"
+PLATFORM_FEE_PERCENT = "8"
+FRONTEND_URL = "https://dastkar.pages.dev"
+
+# ---- Scheduled cleanup ----
+# Runs every 15 minutes; cancels orders still 'pending' after 1 hour
+# (see src/scheduled.ts — ABANDONED_ORDER_MINUTES) and releases their
+# reserved stock back to the listing.
+[triggers]
+crons = ["*/15 * * * *"]
